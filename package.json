@@ -1,0 +1,30 @@
+{
+    "name": "tuankhoa",
+    "version": "1.0.0",
+    "description": "Tuan khoa blog page",
+    "author": "tuankhoa",
+    "license": "ISC",
+    "dependencies": {
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-react": "^6.24.1",
+        "lodash": "^4.17.10",
+        "react": "^16.4.1",
+        "react-dom": "^16.4.1",
+        "react-redux": "^5.0.7",
+        "react-router-dom": "^4.3.1",
+        "redux": "^4.0.0",
+        "redux-thunk": "^2.3.0",
+        "webpack": "^4.16.2"
+    },
+    "scripts": {
+        "dev": "webpack -d",
+        "watch": "webpack -d --watch",
+        "build": "webpack -p"
+    },
+    "devDependencies": {
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "webpack-cli": "^3.1.0"
+    }
+}
