@@ -1,18 +1,25 @@
-import React, { Component, Fragment } from 'react';
-import Header from './pages/Header/Header';
-import Footer from './pages/Footer/Footer';
-import FooterExtension from './pages/FooterExtension/FooterExtension';
-import HomePage from './pages/HomePage/HomePage';
+import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import routes from './routes';
 
 class App extends Component {
+    showContentMenu = (routes) => (
+        routes.map((route, index) => (
+            <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.main}
+            />
+        ))
+    )
     render() {
         return (
-            <Fragment>
-                <Header/>
-                <HomePage/>
-                <FooterExtension/>
-                <Footer/>
-            </Fragment>
+            <BrowserRouter>
+                <Switch>
+                    {this.showContentMenu(routes)}
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

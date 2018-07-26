@@ -6,6 +6,8 @@
 if (!function_exists('tuankhoa_site_setup_theme')) {
     function tuankhoa_site_setup_theme()
     {
+        add_image_size('w1000x600', 1000, 600, true);
+
         /* Auto Add RSS to <head> */
         add_theme_support('automatic-feed-links');
 
@@ -43,12 +45,6 @@ if (!function_exists('tuankhoa_site_front_layout')) {
         wp_enqueue_script('tether-script', get_stylesheet_directory_uri() . "/public/common-js/tether.min.js", ['jquery'], false, true);
         wp_enqueue_script('bootstrap-script', get_stylesheet_directory_uri() . "/public/common-js/bootstrap.js", ['jquery'], false, true);
         wp_enqueue_script('bundle-script', get_stylesheet_directory_uri() . "/public/bundle.js", [], false, true);
-        
-        
-        if (is_home()) {
-            wp_enqueue_style('home-style', get_stylesheet_directory_uri() . "/public/01-homepage/css/styles.css");
-            wp_enqueue_style('home-resp-style', get_stylesheet_directory_uri() . "/public/01-homepage/css/responsive.css");
-        }
     }
 }
 add_action('wp_enqueue_scripts', 'tuankhoa_site_front_layout', 5);

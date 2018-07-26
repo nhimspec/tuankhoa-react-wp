@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { getPostThumbnail } from './../../utils/helper';
 
 class BlogItem extends Component {
     render() {
         const { post } = this.props;
+        let postThumbnail = getPostThumbnail(post, 'w1000x600');
         return (
             <div className="single-post">
-                <div className="image-wrapper">
-                    <img src="images/blog-1-1000x600.jpg" alt="Blog Image" />
-                </div>
+                {
+                    postThumbnail ?
+                        <div className="image-wrapper">
+                            <img src={postThumbnail} alt={post.title.rendered} />
+                        </div> : ''
+                }
 
                 <div className="icons">
                     <div className="left-area">
@@ -21,13 +27,15 @@ class BlogItem extends Component {
                 </div>
                 <p className="date"><em>Monday, October 13, 2017</em></p>
                 <h3 className="title">
-                    <a href="#">
+                    <Link
+                        to={`/post/${post.slug}`}
+                    >
                         <b className="light-color">
                             {post.title.rendered}
                         </b>
-                    </a>
+                    </Link>
                 </h3>
-                <div dangerouslySetInnerHTML={{__html: post.excerpt.rendered}} />
+                <div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
                 <a className="btn read-more-btn" href="#"><b>READ MORE</b></a>
             </div>
         );

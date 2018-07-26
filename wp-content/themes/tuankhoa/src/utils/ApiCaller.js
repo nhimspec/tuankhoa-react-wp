@@ -7,11 +7,16 @@ class ApiCaller {
     }
 
     // Method for getting data from the provided end point url
-    api(endPoint, method = 'GET', body = []) {
+    api(endPoint, method = 'GET', body = {}) {
         if (method === 'GET') {
-            return fetch(endPoint, {
-                method: method
-            }).then(res => res.json()).catch(err => console.log(err));
+            var esc = encodeURIComponent,
+                query = Object.keys(body)
+                    .map(k => esc(k) + '=' + esc(body[k]))
+                    .join('&');
+            return fetch(`${endPoint}?${query}`, {
+                method: method,
+            }).then(res => res.json())
+                .catch(err => console.log(err));
         } else {
             return fetch(endPoint, {
                 method: method,
@@ -19,12 +24,15 @@ class ApiCaller {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(res => res.json()).catch(err => console.log(err));
+            }).then(res => res.json())
+                .catch(err => console.log(err));
         }
     }
 
     getPosts() {
-        return this.api(this.postsEndPoint);
+        return this.api(this.postsEndPoint, 'GET', {
+            _embed: true
+        });
     }
 }
 
