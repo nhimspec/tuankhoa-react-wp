@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
     render() {
@@ -27,7 +28,15 @@ class Header extends Component {
 
                     </div>
 
-                </div>	<div className="middle-menu center-text"><a href="#" className="logo"><img src="images/logo.png" alt="Logo Image" /></a></div>
+                </div>
+                <div className="middle-menu center-text">
+                    <Link
+                        to={'/'}
+                        className="logo"
+                    >
+                        <img src="images/logo.png" alt="Logo Image" />
+                    </Link>
+                </div>
 
                 <div className="bottom-area">
 

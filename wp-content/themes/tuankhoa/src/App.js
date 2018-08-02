@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 import routes from './routes';
 
 class App extends Component {
@@ -16,9 +17,11 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Switch>
-                    {this.showContentMenu(routes)}
-                </Switch>
+                <ScrollToTop>
+                    <Switch>
+                        {this.showContentMenu(routes)}
+                    </Switch>
+                </ScrollToTop>
             </BrowserRouter>
         );
     }

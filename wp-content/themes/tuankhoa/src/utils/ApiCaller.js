@@ -28,11 +28,26 @@ class ApiCaller {
                 .catch(err => console.log(err));
         }
     }
-
-    getPosts() {
+    getAllPosts() {
         return this.api(this.postsEndPoint, 'GET', {
             _embed: true
         });
+    }
+
+
+    getLastestPosts(limit = 4) {
+        return this.api(this.postsEndPoint, 'GET', {
+            _embed: true,
+            per_page: limit
+        });
+    }
+
+
+    getPost(postSlug) {
+        return this.api(this.postsEndPoint, 'GET', {
+            _embed: true,
+            slug: postSlug
+        }).then(res => res[0]);
     }
 }
 

@@ -4,7 +4,7 @@ import BlogItem from '../../components/BlogItem/BlogItem';
 import { connect } from 'react-redux';
 import { actGetAllPostRequest } from './../../actions';
 
-class BlogContainer extends Component {
+class HomePageContainer extends Component {
 
     componentDidMount() {
         this.props.getAllBlog();
@@ -15,6 +15,8 @@ class BlogContainer extends Component {
             <BlogItem
                 key={key}
                 post={post}
+                postContent={post.excerpt.rendered}
+                isShowReadMore={true}
             />
         ))
     )
@@ -39,4 +41,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);

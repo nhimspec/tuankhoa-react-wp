@@ -1,139 +1,54 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { actGetPostRequest } from './../../actions';
+import BlogItem from './../../components/BlogItem/BlogItem';
+import Author from './../../components/Author/Author';
 class PostContainer extends Component {
+    state = {
+        isLoadingPost: true
+    }
+    componentDidMount() {
+        this.props.getPost(this.props.match.params.slug);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.post !== this.props.post) {
+            this.setState({
+                isLoadingPost: false
+            })
+        }
+    }
+
     render() {
-        return (
-            <div class="blog-posts">
-
-                <div class="single-post">
-                    <div class="image-wrapper"><img src="images/blog-1-1000x600.jpg" alt="Blog Image" /></div>
-
-                    <div class="icons">
-                        <div class="left-area">
-                            <a class="btn caegory-btn" href="#"><b>TRAVEL</b></a>
-                        </div>
-                        <ul class="right-area social-icons">
-                            <li><a href="#"><i class="ion-android-share-alt"></i>Share</a></li>
-                            <li><a href="#"><i class="ion-android-favorite-outline"></i>03</a></li>
-                            <li><a href="#"><i class="ion-android-textsms"></i>06</a></li>
-                        </ul>
-                    </div>
-                    <p class="date"><em>Monday, October 13, 2017</em></p>
-                    <h3 class="title"><a href="#"><b class="light-color">This is post about travel, adventure and fun</b></a></h3>
-                    <p class="desc">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                         consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-								dolore magnam aliquam quaerat voluptatem.</p>
-
-                    <p class="desc">Eerror sit voluptatem accusantium doloremque
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                         consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-								dolore magnam aliquam quaerat voluptatem.</p>
-
-                    <h5 class="quoto"><em><i class="ion-quote"></i>Eerror sit voluptatem accusantium doloremque
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                         consectetur, adipisci velit
-							</em></h5>
-
-                    <div class="image-wrapper"><img src="images/blog-2-1000x600.jpg" alt="Blog Image" /></div>
-
-                    <p class="desc">Eerror sit voluptatem accusantium doloremque
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                         consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-								dolore magnam aliquam quaerat voluptatem.</p>
-
-                    <ul>
-                        <li><a class="btn" href="#">design</a></li>
-                        <li><a class="btn" href="#">fashion</a></li>
-                    </ul>
-
+        let { post } = this.props;
+        let { isLoadingPost } = this.state;
+        if (isLoadingPost) {
+            return ('');
+        } else {
+            return (
+                <div class="blog-posts">
+                    <BlogItem
+                        post={post}
+                        postContent={post.content.rendered}
+                        isShowReadMore={false}
+                    />
+                    <Author 
+                        post={post}
+                    />
                 </div>
-
-
-                <div class="post-author">
-                    <div class="author-image"><img src="images/author-1-200x200.jpg" alt="Autohr Image" /></div>
-
-                    <div class="author-info">
-                        <h4 class="name"><b class="light-color">Cristnne Smith</b></h4>
-
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-								dolore magnam aliquam quaerat voluptatem.</p>
-
-                        <ul class="social-icons">
-                            <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-                            <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-                            <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-                            <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-                            <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
-                        </ul>
-
-                    </div>
-                </div>
-
-                <div class="comments-area">
-                    <h4 class="title"><b class="light-color">2 Comments</b></h4>
-                    <div class="comment">
-                        <div class="author-image"><img src="images/author-2-150x150.jpg" alt="Autohr Image" /></div>
-                        <div class="comment-info">
-                            <h5><b class="light-color">William Smith</b></h5>
-                            <h6 class="date"><em>Monday, October 30, 2017</em></h6>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-										dolore magnam aliquam quaerat voluptatem.</p>
-                        </div>
-                    </div>
-
-                    <div class="comment">
-                        <div class="author-image"><img src="images/author-3-150x150.jpg" alt="Autohr Image" /></div>
-                        <div class="comment-info">
-                            <h5><b class="light-color">William Smith</b></h5>
-                            <h6 class="date"><em>Monday, October 30, 2017</em></h6>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-										dolore magnam aliquam quaerat voluptatem.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="leave-comment-area">
-                    <h4 class="title"><b class="light-color">Leave a comment</b></h4>
-                    <div class="leave-comment">
-
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <input class="name-input" type="text" placeholder="Name" />>
-										</div>
-                                <div class="col-sm-6">
-                                    <input class="email-input" type="text" placeholder="Email" />>
-										</div>
-                                <div class="col-sm-12">
-                                    <input class="subject-input" type="text" placeholder="Subject" />>
-										</div>
-                                <div class="col-sm-12">
-                                    <textarea class="message-input" rows="6" placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-sm-12">
-                                    <button class="btn btn-2"><b>COMMENT</b></button>
-                                </div>
-
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-        );
+            );
+        }
     }
 }
 
-export default PostContainer;
+const mapStateToProps = state => ({
+    post: state.post
+});
+
+const mapDispatchToProps = (dispatch, props) => ({
+    getPost: (postSlug) => {
+        dispatch(actGetPostRequest(postSlug));
+    },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

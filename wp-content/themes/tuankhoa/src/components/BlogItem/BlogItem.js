@@ -4,7 +4,7 @@ import { getPostThumbnail } from './../../utils/helper';
 
 class BlogItem extends Component {
     render() {
-        const { post } = this.props;
+        const { post, postContent,isShowReadMore } = this.props;
         let postThumbnail = getPostThumbnail(post, 'w1000x600');
         return (
             <div className="single-post">
@@ -35,8 +35,16 @@ class BlogItem extends Component {
                         </b>
                     </Link>
                 </h3>
-                <div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
-                <a className="btn read-more-btn" href="#"><b>READ MORE</b></a>
+                <div dangerouslySetInnerHTML={{ __html: postContent }} />
+                {
+                    isShowReadMore ? 
+                        <Link 
+                            className="btn read-more-btn"
+                            to={`/post/${post.slug}`}
+                        >
+                            <b>READ MORE</b>
+                        </Link> : ''
+                }
             </div>
         );
     }
